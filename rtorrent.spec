@@ -23,8 +23,8 @@ management.
 
 %description -l pl
 rTorrent to konsolowy klient BitTorrenta. Jego celem jest byæ pe³nym i
-efektywnym klientem, z mo¿liwo¶ci±, uruchamiania do w tle u¿ywaj±c
-screen'a. Wspomaga szybkie wznawianie i zarz±dzanie sesjami.
+wydajnym klientem, z mo¿liwo¶ci± uruchamiania go w tle przy u¿yciu
+screena. Obs³uguje szybkie wznawianie i zarz±dzanie sesjami.
 
 %prep
 %setup -q
