@@ -19,6 +19,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtorrent-devel >= %{_libver}
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
+BuildRequires:	zlib-devel
 Requires:	libtorrent >= %{_libver}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
