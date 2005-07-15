@@ -101,12 +101,12 @@ diff -ru -x Makefile -x '*.avi*' -x 'config.*' -x .deps -x stamp-h1 rtorrent-0.2
  
  }
 diff -ru -x Makefile -x '*.avi*' -x 'config.*' -x .deps -x stamp-h1 rtorrent-0.2.4.orig/src/display/window_statusbar.cc rtorrent-0.2.4/src/display/window_statusbar.cc
---- rtorrent-0.2.4.orig/src/display/window_statusbar.cc	2005-06-07 21:58:18.000000000 +0200
-+++ rtorrent-0.2.4/src/display/window_statusbar.cc	2005-06-10 20:50:45.000000000 +0200
-@@ -62,6 +62,7 @@
- 		  (int)torrent::get_listen_port(),
- 		  !torrent::get_bind().empty() ? ("  Bind: " + torrent::get_bind()).c_str() : "",
- 		  torrent::get_total_handshakes());
+--- rtorrent-0.2.7/src/display/window_statusbar.cc.orig	2005-07-06 12:34:37.000000000 +0200
++++ rtorrent-0.2.7/src/display/window_statusbar.cc	2005-07-15 13:11:22.000000000 +0200
+@@ -85,6 +85,7 @@
+ 		 torrent::get_max_open_sockets());
+ 
+   m_canvas->print(m_canvas->get_width() - pos, 0, "%s", buf);
 +  m_canvas->set_attr(0, 0, m_canvas->get_screen_width(), A_REVERSE, 0);
  }
  
