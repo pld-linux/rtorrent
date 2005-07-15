@@ -5,12 +5,12 @@
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
-Version:	0.2.6
-Release:	2
+Version:	0.2.7
+Release:	1
 License:	GPL v2
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
-# Source0-md5:	819b99453abc33a7a934dcacae3a73d5
+# Source0-md5:	e315ede1ccba95b94b9f5652c423f464
 Patch0:		%{name}-colors.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	curl-devel >= 7.12
@@ -40,7 +40,7 @@ screena. Obs³uguje szybkie wznawianie i zarz±dzanie sesjami.
 
 %build
 %configure \
-	CXXFLAGS="%{rpmcxxflags} -I%{_includedir}/ncurses" \
+	CXXFLAGS="%{rpmcflags} -I%{_includedir}/ncurses" \
 	--%{?debug:en}%{!?debug:dis}able-debug
 %{__make}
 
