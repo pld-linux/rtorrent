@@ -2,16 +2,16 @@
 # Conditional build:
 %bcond_with	colors		# with color version
 #
-%define		_libver		0.6.7
+%define		_libver		0.7.0
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
-Version:	0.2.7
+Version:	0.3.0
 Release:	1
 License:	GPL v2
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
-# Source0-md5:	e315ede1ccba95b94b9f5652c423f464
+# Source0-md5:	c57555f8879db012509f2b88968ae203
 Patch0:		%{name}-colors.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	curl-devel >= 7.12
@@ -37,7 +37,7 @@ screena. Obs³uguje szybkie wznawianie i zarz±dzanie sesjami.
 %prep
 %setup -q
 %if %{with colors}
-%patch0 -p1
+#%%patch0 -p1
 %endif
 
 %build
