@@ -100,7 +100,7 @@ diff -U 3 -H -d -r -N -- rtorrent-0.3.0.orig/src/display/window_download_list.cc
 +    m_canvas->print(0, pos, "%c %s", range.first == m_list->get_focus() ? '*' : ' ', buffer);
 +
 +    if (col > 0)
-+      m_canvas->set_attr(82, pos, 5, 0, col);
++      m_canvas->set_attr(80, pos, 5, 0, col);
 +
 +    if (d->get_download().get_bytes_total() > 0) {
 +      double per = (double)d->get_download().get_bytes_done() / (double)d->get_download().get_bytes_total();
