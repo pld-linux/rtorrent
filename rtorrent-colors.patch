@@ -9,8 +9,8 @@ diff -U 3 -H -d -r -N -- rtorrent-0.3.0.orig/src/display/canvas.cc rtorrent-0.3.
  }
  
  void
---- rtorrent-0.3.1/src/display/utils.cc.orig	2005-08-12 19:09:58.000000000 +0200
-+++ rtorrent-0.3.1/src/display/utils.cc	2005-08-14 01:12:18.000000000 +0200
+--- rtorrent-0.3.3/src/display/utils.cc.orig	2005-08-28 00:40:48.000000000 +0200
++++ rtorrent-0.3.3/src/display/utils.cc	2005-09-03 01:03:51.000000000 +0200
 @@ -55,7 +55,7 @@
  }
  
@@ -20,17 +20,16 @@ diff -U 3 -H -d -r -N -- rtorrent-0.3.0.orig/src/display/canvas.cc rtorrent-0.3.
    char* last = buf + length;
  
    buf += std::max(0, snprintf(buf, last - buf, "Torrent: "));
-@@ -70,10 +70,11 @@
+@@ -70,10 +70,10 @@
  				(double)d->get_download().get_bytes_done() / (double)(1 << 20),
  				(double)d->get_download().get_bytes_total() / (double)(1 << 20)));
    
 -  buf += std::max(0, snprintf(buf, last - buf, " Rate: %5.1f / %5.1f KB Uploaded: %.1f MB",
 +  buf += std::max(0, snprintf(buf, last - buf, " Rate: %5.1f / %5.1f KB Uploaded: %6.1f MB Ratio: %5.2f",
- 			      (double)d->get_download().get_write_rate().rate() / (1 << 10),
- 			      (double)d->get_download().get_read_rate().rate() / (1 << 10),
--			      (double)d->get_download().get_write_rate().total() / (1 << 20)));
-+			      (double)d->get_download().get_write_rate().total() / (1 << 20),
-+			      ratio));
+ 			      (double)d->get_download().get_up_rate().rate() / (1 << 10),
+ 			      (double)d->get_download().get_down_rate().rate() / (1 << 10),
+-			      (double)d->get_download().get_up_rate().total() / (1 << 20)));
++			      (double)d->get_download().get_up_rate().total() / (1 << 20), ratio));
  
    return buf;
  }
@@ -76,7 +75,7 @@ diff -U 3 -H -d -r -N -- rtorrent-0.3.0.orig/src/display/window_download_list.cc
 +    core::Download* d = *range.first;
 +
 +    if (d->get_download().get_bytes_done())
-+      ratio = (double)d->get_download().get_write_rate().total() / (double)d->get_download().get_bytes_done();
++      ratio = (double)d->get_download().get_up_rate().total() / (double)d->get_download().get_bytes_done();
 +
 +    if (ratio >= 1.0)
 +      col = 1;
@@ -150,7 +149,7 @@ diff -U 3 -H -d -r -N -- rtorrent-0.3.0.orig/src/display/window_download_statusb
  
 -  position = print_download_info(buffer, last - buffer, m_download);
 +   if (d->get_download().get_bytes_done())
-+      ratio = (double)d->get_download().get_write_rate().total() / (double)d->get_download().get_bytes_done();
++      ratio = (double)d->get_download().get_up_rate().total() / (double)d->get_download().get_bytes_done();
 +
 +  position = print_download_info(buffer, last - buffer, m_download, ratio);
    m_canvas->print(0, 0, "%s", buffer);
