@@ -42,7 +42,7 @@ screena. Obs³uguje szybkie wznawianie i zarz±dzanie sesjami.
 
 %build
 %configure \
-	CXXFLAGS="%{rpmcflags} -I%{_includedir}/ncurses" \
+	CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses" \
 	--%{?debug:en}%{!?debug:dis}able-debug
 %{__make}
 
