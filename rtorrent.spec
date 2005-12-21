@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_with	colors		# with color version
 #
-%define		_libver		0.8.1
+%define		_libver		0.8.0
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
