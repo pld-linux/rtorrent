@@ -9,9 +9,9 @@ diff -U 3 -H -d -r -N -- rtorrent-0.3.0.orig/src/display/canvas.cc rtorrent-0.3.
  }
  
  void
---- rtorrent-0.4.1/src/display/utils.cc.orig	2005-12-19 20:49:01.000000000 +0100
-+++ rtorrent-0.4.1/src/display/utils.cc	2005-12-21 04:25:23.000000000 +0100
-@@ -102,7 +102,7 @@
+--- rtorrent-0.4.2/src/display/utils.cc.orig	2005-12-22 01:38:00.000000000 +0100
++++ rtorrent-0.4.2/src/display/utils.cc	2006-01-10 05:41:47.000000000 +0100
+@@ -101,7 +101,7 @@
  }
  
  char*
@@ -19,17 +19,17 @@ diff -U 3 -H -d -r -N -- rtorrent-0.3.0.orig/src/display/canvas.cc rtorrent-0.3.
 +print_download_info(char* buf, unsigned int length, core::Download* d, double ratio) {
    char* last = buf + length;
  
-   buf += std::max(0, snprintf(buf, last - buf, "Torrent: "));
-@@ -117,10 +117,10 @@
- 				(double)d->get_download().bytes_done() / (double)(1 << 20),
- 				(double)d->get_download().bytes_total() / (double)(1 << 20)));
+   buf += std::max(snprintf(buf, last - buf, "Torrent: "), 0);
+@@ -116,10 +116,10 @@
+ 			     (double)d->get_download().bytes_done() / (double)(1 << 20),
+ 			     (double)d->get_download().bytes_total() / (double)(1 << 20)), 0);
    
--  buf += std::max(0, snprintf(buf, last - buf, " Rate: %5.1f / %5.1f KB Uploaded: %7.1f MB ",
-+  buf += std::max(0, snprintf(buf, last - buf, " Rate: %5.1f / %5.1f KB Uploaded: %6.1f MB Ratio: %5.2f ",
- 			      (double)d->get_download().up_rate()->rate() / (1 << 10),
- 			      (double)d->get_download().down_rate()->rate() / (1 << 10),
--			      (double)d->get_download().up_rate()->total() / (1 << 20)));
-+			      (double)d->get_download().up_rate()->total() / (1 << 20), ratio));
+-  buf += std::max(snprintf(buf, last - buf, " Rate: %5.1f / %5.1f KB Uploaded: %7.1f MB ",
++  buf += std::max(snprintf(buf, last - buf, " Rate: %5.1f / %5.1f KB Uploaded: %6.1f MB Ratio: %5.2f ",
+ 			   (double)d->get_download().up_rate()->rate() / (1 << 10),
+ 			   (double)d->get_download().down_rate()->rate() / (1 << 10),
+-			   (double)d->get_download().up_rate()->total() / (1 << 20)), 0);
++			   (double)d->get_download().up_rate()->total() / (1 << 20), ratio), 0);
  
    //buf += std::max(0, snprintf(buf, length, " Left: "));
    buf = print_download_time_left(buf, length, d);
@@ -163,16 +163,15 @@ diff -U 3 -H -d -r -N -- rtorrent-0.3.0.orig/src/display/window_download_list.h 
  }
  
  }
-diff -U 3 -H -d -r -N -- rtorrent-0.3.0.orig/src/display/window_statusbar.cc rtorrent-0.3.0/src/display/window_statusbar.cc
---- rtorrent-0.3.0.orig/src/display/window_statusbar.cc	2005-07-18 21:10:24.000000000 +0200
-+++ rtorrent-0.3.0/src/display/window_statusbar.cc	2005-07-29 18:09:37.000000000 +0200
-@@ -86,6 +86,7 @@
- 		 torrent::get_max_open_sockets());
+--- rtorrent-0.4.2/src/display/window_statusbar.cc.orig	2006-01-09 18:15:39.000000000 +0100
++++ rtorrent-0.4.2/src/display/window_statusbar.cc	2006-01-10 05:34:47.000000000 +0100
+@@ -94,6 +94,7 @@
+ 		 torrent::max_open_files());
  
    m_canvas->print(m_canvas->get_width() - pos, 0, "%s", buf);
 +  m_canvas->set_attr(0, 0, m_canvas->get_screen_width(), A_REVERSE, 0);
- }
  
+   m_lastTick = m_control->tick();
  }
 diff -U 3 -H -d -r -N -- rtorrent-0.3.0.orig/src/display/window_title.cc rtorrent-0.3.0/src/display/window_title.cc
 --- rtorrent-0.3.0.orig/src/display/window_title.cc	2005-07-01 22:45:24.000000000 +0200
