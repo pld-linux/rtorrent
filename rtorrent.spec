@@ -14,6 +14,7 @@ Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
 Patch0:		%{name}-colors.patch
 Patch1:		%{name}-inttypes.patch
 URL:		http://libtorrent.rakshasa.no/
+BuildRequires:	automake
 BuildRequires:	curl-devel >= 7.12
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtorrent-devel >= 0.8.0
@@ -41,6 +42,7 @@ screena. Obs³uguje szybkie wznawianie i zarz±dzanie sesjami.
 %patch1 -p1
 
 %build
+cp /usr/share/automake/config.sub .
 %configure \
 	CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses" \
 	--%{?debug:en}%{!?debug:dis}able-debug
