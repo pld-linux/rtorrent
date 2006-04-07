@@ -10,7 +10,7 @@ Release:	1
 License:	GPL v2
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
-# Source0-md5:	5344b71334bacdbc80066b2a468aa05c
+# Source0-md5:	430991ae945f0df88fd3a369b3836595
 Patch0:		%{name}-colors.patch
 Patch1:		%{name}-inttypes.patch
 URL:		http://libtorrent.rakshasa.no/
