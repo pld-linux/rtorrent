@@ -42,18 +42,18 @@
  }
  
  }
---- rtorrent-0.5.0/src/display/client_info.cc.orig	2006-04-05 22:05:13.000000000 +0200
-+++ rtorrent-0.5.0/src/display/client_info.cc	2006-05-04 14:42:20.000000000 +0200
-@@ -133,7 +133,7 @@
- 				client_info_equal(id + 1, sizeof_key(TYPE_AZUREUS)));
- 
-     if (itr != m_containers[TYPE_AZUREUS].end())
+--- rtorrent-0.5.3/src/display/client_info.cc.orig	2006-07-08 14:41:54.355385750 +0200
++++ rtorrent-0.5.3/src/display/client_info.cc	2006-07-08 14:43:45.662342000 +0200
+@@ -137,7 +137,7 @@
+       if (id[1] == 'l' && id[2] == 't' && !std::strncmp(id+16, "UDP0", 4))
+ 	first = print_buffer(first, last, "BitSpirit (spoofed ID)");
+       else
 -      first = print_buffer(first, last, "%s %hhu.%hhu.%hhu.%hhu", itr->second,
 +      first = print_buffer(first, last, "%-12s %hhu.%hhu.%hhu.%hhu", itr->second,
  			   rak::hexchar_to_value(id[3]), rak::hexchar_to_value(id[4]),
  			   rak::hexchar_to_value(id[5]), rak::hexchar_to_value(id[6]));
-     
-@@ -142,7 +142,7 @@
+     }
+@@ -147,7 +147,7 @@
  			   rak::hexchar_to_value(id[3]), rak::hexchar_to_value(id[4]),
  			   rak::hexchar_to_value(id[5]), rak::hexchar_to_value(id[6]));
  
@@ -62,7 +62,7 @@
  	     std::isxdigit(id[1]) && std::isxdigit(id[2]) && std::isxdigit(id[3])) {
      // TYPE_THREE_COMPACT.
  
-@@ -150,7 +150,7 @@
+@@ -155,7 +155,7 @@
  				client_info_equal(id, sizeof_key(TYPE_COMPACT)));
  
      if (itr != m_containers[TYPE_COMPACT].end())
@@ -71,7 +71,7 @@
  			   rak::hexchar_to_value(id[1]), rak::hexchar_to_value(id[2]), rak::hexchar_to_value(id[3]));
      
      else
-@@ -165,7 +165,7 @@
+@@ -170,7 +170,7 @@
  				client_info_equal(id, sizeof_key(TYPE_MAINLINE)));
  
      if (itr != m_containers[TYPE_MAINLINE].end())
@@ -80,27 +80,39 @@
  			   rak::hexchar_to_value(id[1]), rak::hexchar_to_value(id[3]), rak::hexchar_to_value(id[5]));
      
      else
-@@ -179,8 +179,16 @@
-   // Well... fuck this... I don't feel like adding the rest of the
-   // checks as they wouldn't be possible to remove/modify.
- 
--  } else {
--    first = print_buffer(first, last, "unknown");
-+  } else if (id[0] == 'e' && id[1] == 'x' && id[2] == 'b' && id[3] == 'c' &&
-+  	     id[6] == 'L' && id[7] == 'O' && id[8] == 'R' && id[9] == 'D') {
-+      first = print_buffer(first, last, "%-12s %hhu.%hhu", "BitLord", id[4], id[5]);
-+
-+  } else if (id[0] == '-' && id[1] == 'M' && id[2] == 'L') {
+@@ -187,13 +187,13 @@
+   } else {
+     if (std::strncmp(id, "exbc", 4) == 0) {
+       if (id[4] == 0)
+-        first = print_buffer(first, last, "%s %hhu.%02hhu", "BitComet", id[4], id[5]);
++        first = print_buffer(first, last, "%-12s %hhu.%02hhu", "BitComet", id[4], id[5]);
+       else
+-	first = print_buffer(first, last, "%s %hhu.%hhu", "BitLord", id[4], id[5]);
++	first = print_buffer(first, last, "%-12s %hhu.%hhu", "BitLord", id[4], id[5]);
+     } else if (id[2] == 'B' && id[3] == 'S') {
+-      first = print_buffer(first, last, "BitSpirit %hhu.%hhu", id[1], id[0]);
++      first = print_buffer(first, last, "%-12s %hhu.%hhu", "BitSpirit", id[1], id[0]);
+     } else if (id[0] == '-' && id[1] == 'M' && id[2] == 'L') {
+-      first = print_buffer(first, last, "MLDonkey %hhu.%hhu.%hhu", 
 +      first = print_buffer(first, last, "%-12s %hhu.%hhu.%hhu", "MLDonkey",
-+			   rak::hexchar_to_value(id[3]), rak::hexchar_to_value(id[5]), rak::hexchar_to_value(id[7]));
-+  }
-+  else {
+ 		rak::hexchar_to_value(id[3]), rak::hexchar_to_value(id[5]), rak::hexchar_to_value(id[7]));
+     } else if (id[0] == '-' && id[1] == 'G' && id[2] == '3') {
+       first = print_buffer(first, last, "G3 Torrent");
+@@ -202,10 +202,10 @@
+     } else if (std::strncmp(id+16, "UDP0", 4) == 0) {
+       first = print_buffer(first, last, "BitSpirit (cloaked)");
+     } else if (std::strncmp(id+2, "Mbrst", 5) == 0) {
+-      first = print_buffer(first, last, "burst! %hhu.%hhu.%hhu",
++      first = print_buffer(first, last, "%-12s %hhu.%hhu.%hhu", "burst!",
+ 		rak::hexchar_to_value(id[4]), rak::hexchar_to_value(id[6]), rak::hexchar_to_value(id[8]));
+     } else
+-    first = print_buffer(first, last, "unknown");
 +    first = print_buffer(first, last, "");
    }
  
    return first;
 --- rtorrent-0.5.1/src/display/window_download_list.cc.orig	2006-05-01 18:30:08.000000000 +0200
-+++ rtorrent-0.5.1/src/display/window_download_list.cc	2006-05-06 03:05:16.000000000 +0200
++++ rtorrent-0.5.1/src/display/window_download_list.cc	2006-05-07 18:14:05.000000000 +0200
 @@ -38,6 +38,8 @@
  
  #include <rak/algorithm.h>
@@ -137,15 +149,16 @@
 +      col = 2;
 +    else
 +      col = 3;
- 
-     position = print_download_title(buffer, last, *range.first);
--    m_canvas->print(0, pos++, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
--    
++
++    position = print_download_title(buffer, last, *range.first, ratio);
 +    m_canvas->print(0, pos, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
 +    if (d->download()->is_open())
 +      m_canvas->set_attr(0, pos, m_canvas->get_screen_width(), (d->is_done())?0:A_BOLD, (d->is_done())?col:4);
 +    pos++;
-+
+ 
+-    position = print_download_title(buffer, last, *range.first);
+-    m_canvas->print(0, pos++, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
+-    
      position = print_download_info(buffer, last, *range.first);
 -    m_canvas->print(0, pos++, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
 +    m_canvas->print(0, pos, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
@@ -162,3 +175,27 @@
  
      ++range.first;
    }    
+--- rtorrent-0.5.1/src/display/utils.h.orig	2006-05-01 18:29:58.000000000 +0200
++++ rtorrent-0.5.1/src/display/utils.h	2006-05-07 18:02:02.000000000 +0200
+@@ -63,7 +63,7 @@
+ char*       print_ddhhmm(char* first, char* last, time_t t);
+ char*       print_ddmmyyyy(char* first, char* last, time_t t);
+ 
+-char*       print_download_title(char* first, char* last, core::Download* d);
++char*       print_download_title(char* first, char* last, core::Download* d, double ratio);
+ char*       print_download_info(char* first, char* last, core::Download* d);
+ char*       print_download_status(char* first, char* last, core::Download* d);
+ char*       print_download_time_left(char* first, char* last, core::Download* d);
+--- rtorrent-0.5.1/src/display/utils.cc.orig	2006-05-01 18:30:08.000000000 +0200
++++ rtorrent-0.5.1/src/display/utils.cc	2006-05-07 18:09:23.000000000 +0200
+@@ -117,8 +117,8 @@
+ }
+ 
+ char*
+-print_download_title(char* first, char* last, core::Download* d) {
+-  return print_buffer(first, last, " %s", d->download()->name().c_str());
++print_download_title(char* first, char* last, core::Download* d, double ratio) {
++  return print_buffer(first, last, " %-82s  R: %5.2f", d->download()->name().c_str(), ratio);
+ }
+ 
+ char*
