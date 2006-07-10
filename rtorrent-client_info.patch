@@ -1,0 +1,44 @@
+--- rtorrent-0.5.3/src/display/client_info.cc.orig	2006-05-04 16:12:24.000000000 +0200
++++ rtorrent-0.5.3/src/display/client_info.cc	2006-07-08 14:38:15.961737000 +0200
+@@ -133,9 +133,14 @@
+ 				client_info_equal(id + 1, sizeof_key(TYPE_AZUREUS)));
+ 
+     if (itr != m_containers[TYPE_AZUREUS].end())
++    {
++      if (id[1] == 'l' && id[2] == 't' && !std::strncmp(id+16, "UDP0", 4))
++	first = print_buffer(first, last, "BitSpirit (spoofed ID)");
++      else
+       first = print_buffer(first, last, "%s %hhu.%hhu.%hhu.%hhu", itr->second,
+ 			   rak::hexchar_to_value(id[3]), rak::hexchar_to_value(id[4]),
+ 			   rak::hexchar_to_value(id[5]), rak::hexchar_to_value(id[6]));
++    }
+     
+     else
+       first = print_buffer(first, last, "unknown %c%c %hhu.%hhu.%hhu.%hhu", id[1], id[2],
+@@ -180,6 +185,26 @@
+   // checks as they wouldn't be possible to remove/modify.
+ 
+   } else {
++    if (std::strncmp(id, "exbc", 4) == 0) {
++      if (id[4] == 0)
++        first = print_buffer(first, last, "%s %hhu.%02hhu", "BitComet", id[4], id[5]);
++      else
++	first = print_buffer(first, last, "%s %hhu.%hhu", "BitLord", id[4], id[5]);
++    } else if (id[2] == 'B' && id[3] == 'S') {
++      first = print_buffer(first, last, "BitSpirit %hhu.%hhu", id[1], id[0]);
++    } else if (id[0] == '-' && id[1] == 'M' && id[2] == 'L') {
++      first = print_buffer(first, last, "MLDonkey %hhu.%hhu.%hhu", 
++		rak::hexchar_to_value(id[3]), rak::hexchar_to_value(id[5]), rak::hexchar_to_value(id[7]));
++    } else if (id[0] == '-' && id[1] == 'G' && id[2] == '3') {
++      first = print_buffer(first, last, "G3 Torrent");
++    } else if (id[0] == 'e' && id[1] == 'X') {
++      first = print_buffer(first, last, "eXeem");
++    } else if (std::strncmp(id+16, "UDP0", 4) == 0) {
++      first = print_buffer(first, last, "BitSpirit (cloaked)");
++    } else if (std::strncmp(id+2, "Mbrst", 5) == 0) {
++      first = print_buffer(first, last, "burst! %hhu.%hhu.%hhu",
++		rak::hexchar_to_value(id[4]), rak::hexchar_to_value(id[6]), rak::hexchar_to_value(id[8]));
++    } else
+     first = print_buffer(first, last, "unknown");
+   }
+ 
