@@ -186,8 +186,8 @@
  char*       print_download_info(char* first, char* last, core::Download* d);
  char*       print_download_status(char* first, char* last, core::Download* d);
  char*       print_download_time_left(char* first, char* last, core::Download* d);
---- rtorrent-0.5.1/src/display/utils.cc.orig	2006-05-01 18:30:08.000000000 +0200
-+++ rtorrent-0.5.1/src/display/utils.cc	2006-05-07 18:09:23.000000000 +0200
+--- rtorrent-0.6.0/src/display/utils.cc.orig	2006-07-07 22:14:21.000000000 +0200
++++ rtorrent-0.6.0/src/display/utils.cc	2006-07-10 18:32:47.066933500 +0200
 @@ -117,8 +117,8 @@
  }
  
@@ -199,3 +199,16 @@
  }
  
  char*
+@@ -152,10 +152,9 @@
+     first = print_buffer(first, last, "                ");
+   }
+ 
+-  first = print_buffer(first, last, " [%c%c R: %3.2f",
++  first = print_buffer(first, last, " [%c%c",
+                        d->variable()->get_string("tied_to_file").empty() ? ' ' : 'T',
+-                       d->variable()->get_value("ignore_commands") == 0 ? ' ' : 'I',
+-                       d->download()->bytes_done() > 0 ? (double)(100 * d->download()->up_rate()->total() / d->download()->bytes_done()) / 100 : 0.0);
++                       d->variable()->get_value("ignore_commands") == 0 ? ' ' : 'I');
+ 
+   if (d->priority() != 2)
+     first = print_buffer(first, last, " %s]", core::Download::priority_to_string(d->priority()));
