@@ -13,6 +13,7 @@ Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
 # Source0-md5:	fde0bbee25e63421b88638270113411c
 Patch0:		%{name}-inttypes.patch
 Patch1:		%{name}-client_info.patch
+Patch2:		%{name}-dns_peer_info.patch
 Patch100:	%{name}-colors.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	automake
@@ -39,6 +40,7 @@ screena. Obs³uguje szybkie wznawianie i zarz±dzanie sesjami.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 %if %{with colors}
 %patch100 -p1
 %endif
