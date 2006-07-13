@@ -1,0 +1,40 @@
+--- rtorrent-0.6.0/src/display/window_peer_info.cc.orig	2006-05-27 01:20:32.000000000 +0200
++++ rtorrent-0.6.0/src/display/window_peer_info.cc	2006-07-13 02:54:42.368541750 +0200
+@@ -42,6 +42,10 @@
+ #include <torrent/rate.h>
+ #include <torrent/connection_manager.h>
+ 
++#include <netdb.h>
++#include <arpa/inet.h>
++#include <sys/socket.h>
++
+ #include "core/download.h"
+ 
+ #include "globals.h"
+@@ -51,6 +55,9 @@
+ #include "utils.h"
+ #include "window_peer_info.h"
+ 
++struct hostent *hp;
++struct in_addr ip;
++
+ namespace display {
+ 
+ WindowPeerInfo::WindowPeerInfo(core::Download* d, PList* l, PList::iterator* f) :
+@@ -113,9 +120,14 @@
+ 
+   m_canvas->print(0, y++, "*** Peer Info ***");
+ 
+-  m_canvas->print(0, y++, "IP: %s:%hu",
++  const char *ipstr = rak::socket_address::cast_from((*m_focus)->address())->address_str().c_str();
++  inet_aton(ipstr, &ip);
++  hp = gethostbyaddr((const char *)&ip, sizeof ip, AF_INET);
++
++  m_canvas->print(0, y++, "IP: %s:%hu  DNS: %s",
+ 		  rak::socket_address::cast_from((*m_focus)->address())->address_str().c_str(),
+-		  rak::socket_address::cast_from((*m_focus)->address())->port());
++		  rak::socket_address::cast_from((*m_focus)->address())->port(),
++                  hp != NULL ? hp->h_name : "");
+ 
+   m_canvas->print(0, y++, "ID: %s" , rak::copy_escape_html((*m_focus)->id()).c_str());
+ 
