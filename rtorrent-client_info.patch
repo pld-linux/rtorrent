@@ -32,7 +32,7 @@
 -    if (itr != m_containers[TYPE_COMPACT].end())
 +    if (itr != m_containers[TYPE_COMPACT].end()) {
 +      char c;
-+      if (id[3] > 'F' && c < 'a')
++      if (id[3] > 'F' && id[3] < 'a')
 +        c = id[3] - 'F' + 0xF;
 +      else
 +        c = rak::hexchar_to_value(id[3]);
