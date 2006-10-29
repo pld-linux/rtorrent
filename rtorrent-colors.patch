@@ -144,8 +144,8 @@
  
    if (d->priority() != 2)
      first = print_buffer(first, last, " %s]", core::Download::priority_to_string(d->priority()));
---- rtorrent-0.6.1/src/display/client_info.cc.orig	2006-08-20 16:49:57.813863000 +0200
-+++ rtorrent-0.6.1/src/display/client_info.cc	2006-08-20 16:52:35.207699500 +0200
+--- rtorrent-0.6.3/src/display/client_info.cc.orig	2006-10-29 02:08:50.793150288 +0100
++++ rtorrent-0.6.3/src/display/client_info.cc	2006-10-29 02:09:36.201247208 +0100
 @@ -140,7 +140,7 @@
        if (id[1] == 'l' && id[2] == 't' && !std::strncmp(id+16, "UDP0", 4))
          first = print_buffer(first, last, "BitSpirit (spoofed ID)");
@@ -161,19 +161,19 @@
  
 -  } else if (std::isalpha(id[0]) && id[4] == '-' &&
 +  } else if (std::isalpha(id[0]) && id[5] == '-' &&
-              std::isxdigit(id[1]) && std::isxdigit(id[2]) && std::isxdigit(id[3])) {
+              std::isxdigit(id[1]) && std::isxdigit(id[2])) {
      // TYPE_THREE_COMPACT.
  
-@@ -158,7 +158,7 @@
-                                       client_info_equal(id, sizeof_key(TYPE_COMPACT)));
+@@ -164,7 +164,7 @@
+       else
+         c = rak::hexchar_to_value(id[3]);
  
-     if (itr != m_containers[TYPE_COMPACT].end())
 -      first = print_buffer(first, last, "%s %hhu.%hhu.%hhu", itr->second,
 +      first = print_buffer(first, last, "%-12s %hhu.%hhu.%hhu", itr->second,
-                            rak::hexchar_to_value(id[1]), rak::hexchar_to_value(id[2]), rak::hexchar_to_value(id[3]));
-     
+                            rak::hexchar_to_value(id[1]), rak::hexchar_to_value(id[2]), c);
+     }
      else
-@@ -174,11 +174,11 @@
+@@ -180,11 +180,11 @@
  
      if (itr != m_containers[TYPE_MAINLINE].end())
        if (id[4] == '-')
@@ -187,7 +187,7 @@
            rak::hexchar_to_value(id[1]), rak::hexchar_to_value(id[3]),
            rak::hexchar_to_value(id[4]), rak::hexchar_to_value(id[6]));
      
-@@ -196,13 +196,13 @@
+@@ -202,13 +202,13 @@
    } else {
      if (std::strncmp(id, "exbc", 4) == 0) {
        if (id[4] == 0)
@@ -205,7 +205,7 @@
  		rak::hexchar_to_value(id[3]), rak::hexchar_to_value(id[5]), rak::hexchar_to_value(id[7]));
      } else if (id[0] == '-' && id[1] == 'G' && id[2] == '3') {
        first = print_buffer(first, last, "G3 Torrent");
-@@ -211,10 +211,10 @@
+@@ -217,10 +217,10 @@
      } else if (std::strncmp(id+16, "UDP0", 4) == 0) {
        first = print_buffer(first, last, "BitSpirit (cloaked)");
      } else if (std::strncmp(id, "Mbrst", 5) == 0) {
