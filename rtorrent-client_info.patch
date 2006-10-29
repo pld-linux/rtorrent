@@ -1,5 +1,5 @@
---- rtorrent-0.6.1/src/display/client_info.cc.orig	2006-08-11 22:41:57.000000000 +0200
-+++ rtorrent-0.6.1/src/display/client_info.cc	2006-08-20 16:30:05.887372250 +0200
+--- rtorrent-0.6.3/src/display/client_info.cc.orig	2006-09-29 13:56:40.000000000 +0200
++++ rtorrent-0.6.3/src/display/client_info.cc	2006-10-29 02:07:44.887169520 +0100
 @@ -136,9 +136,14 @@
                                        client_info_equal(id + 1, sizeof_key(TYPE_AZUREUS)));
  
@@ -18,7 +18,31 @@
      
      else
        first = print_buffer(first, last, "unknown %c%c %hhu.%hhu.%hhu.%hhu", id[1], id[2],
-@@ -160,16 +165,22 @@
+@@ -146,30 +151,42 @@
+                            rak::hexchar_to_value(id[5]), rak::hexchar_to_value(id[6]));
+ 
+   } else if (std::isalpha(id[0]) && id[4] == '-' &&
+-             std::isxdigit(id[1]) && std::isxdigit(id[2]) && std::isxdigit(id[3])) {
++             std::isxdigit(id[1]) && std::isxdigit(id[2])) {
+     // TYPE_THREE_COMPACT.
+ 
+     const_iterator itr = std::find_if(m_containers[TYPE_COMPACT].begin(), m_containers[TYPE_COMPACT].end(),
+                                       client_info_equal(id, sizeof_key(TYPE_COMPACT)));
+ 
+-    if (itr != m_containers[TYPE_COMPACT].end())
++    if (itr != m_containers[TYPE_COMPACT].end()) {
++      char c;
++      if (id[3] > 'F' && c < 'a')
++        c = id[3] - 'F' + 0xF;
++      else
++        c = rak::hexchar_to_value(id[3]);
++
+       first = print_buffer(first, last, "%s %hhu.%hhu.%hhu", itr->second,
+-                           rak::hexchar_to_value(id[1]), rak::hexchar_to_value(id[2]), rak::hexchar_to_value(id[3]));
+-    
++                           rak::hexchar_to_value(id[1]), rak::hexchar_to_value(id[2]), c);
++    }
+     else
        first = print_buffer(first, last, "unknown %c %hhu.%hhu.%hhu", id[0],
                             rak::hexchar_to_value(id[1]), rak::hexchar_to_value(id[2]), rak::hexchar_to_value(id[3]));
      
@@ -45,7 +69,7 @@
      
      else
        first = print_buffer(first, last, "unknown %c %hhu.%hhu.%hhu", id[0],
-@@ -183,6 +194,26 @@
+@@ -183,6 +200,26 @@
    // checks as they wouldn't be possible to remove/modify.
  
    } else {
