@@ -107,9 +107,9 @@
  
      ++range.first;
    }    
---- rtorrent-0.5.1/src/display/utils.h.orig	2006-05-01 18:29:58.000000000 +0200
-+++ rtorrent-0.5.1/src/display/utils.h	2006-05-07 18:02:02.000000000 +0200
-@@ -63,7 +63,7 @@
+--- rtorrent-0.7.1/src/display/utils.h.orig	2006-11-16 17:25:50.000000000 +0100
++++ rtorrent-0.7.1/src/display/utils.h	2007-01-13 09:34:22.563730786 +0100
+@@ -64,7 +64,7 @@
  char*       print_ddhhmm(char* first, char* last, time_t t);
  char*       print_ddmmyyyy(char* first, char* last, time_t t);
  
@@ -118,9 +118,9 @@
  char*       print_download_info(char* first, char* last, core::Download* d);
  char*       print_download_status(char* first, char* last, core::Download* d);
  char*       print_download_time_left(char* first, char* last, core::Download* d);
---- rtorrent-0.6.0/src/display/utils.cc.orig	2006-07-07 22:14:21.000000000 +0200
-+++ rtorrent-0.6.0/src/display/utils.cc	2006-07-10 18:32:47.066933500 +0200
-@@ -117,8 +117,8 @@
+--- rtorrent-0.7.1/src/display/utils.cc.orig	2006-12-20 16:40:21.000000000 +0100
++++ rtorrent-0.7.1/src/display/utils.cc	2007-01-13 09:51:51.515265914 +0100
+@@ -120,8 +120,8 @@
  }
  
  char*
@@ -131,7 +131,7 @@
  }
  
  char*
-@@ -152,10 +152,9 @@
+@@ -155,10 +155,9 @@
      first = print_buffer(first, last, "                ");
    }
  
@@ -144,77 +144,45 @@
  
    if (d->priority() != 2)
      first = print_buffer(first, last, " %s]", core::Download::priority_to_string(d->priority()));
---- rtorrent-0.6.3/src/display/client_info.cc.orig	2006-10-29 02:08:50.793150288 +0100
-+++ rtorrent-0.6.3/src/display/client_info.cc	2006-10-29 02:09:36.201247208 +0100
-@@ -140,7 +140,7 @@
-       if (id[1] == 'l' && id[2] == 't' && !std::strncmp(id+16, "UDP0", 4))
-         first = print_buffer(first, last, "BitSpirit (spoofed ID)");
-       else
--        first = print_buffer(first, last, "%s %hhu.%hhu.%hhu.%hhu", itr->second,
-+        first = print_buffer(first, last, "%-12s %hhu.%hhu.%hhu.%hhu", itr->second,
-           rak::hexchar_to_value(id[3]), rak::hexchar_to_value(id[4]),
-           rak::hexchar_to_value(id[5]), rak::hexchar_to_value(id[6]));
-     }
-@@ -150,7 +150,7 @@
-                            rak::hexchar_to_value(id[3]), rak::hexchar_to_value(id[4]),
-                            rak::hexchar_to_value(id[5]), rak::hexchar_to_value(id[6]));
- 
--  } else if (std::isalpha(id[0]) && id[4] == '-' &&
-+  } else if (std::isalpha(id[0]) && id[5] == '-' &&
-              std::isxdigit(id[1]) && std::isxdigit(id[2])) {
-     // TYPE_THREE_COMPACT.
- 
-@@ -164,7 +164,7 @@
-       else
-         c = rak::hexchar_to_value(id[3]);
- 
--      first = print_buffer(first, last, "%s %hhu.%hhu.%hhu", itr->second,
-+      first = print_buffer(first, last, "%-12s %hhu.%hhu.%hhu", itr->second,
-                            rak::hexchar_to_value(id[1]), rak::hexchar_to_value(id[2]), c);
-     }
-     else
-@@ -180,11 +180,11 @@
- 
-     if (itr != m_containers[TYPE_MAINLINE].end())
-       if (id[4] == '-')
--        first = print_buffer(first, last, "%s %hhu.%hhu.%hhu", itr->second,
-+        first = print_buffer(first, last, "%-12s %hhu.%hhu.%hhu", itr->second,
-           rak::hexchar_to_value(id[1]), rak::hexchar_to_value(id[3]),
-           rak::hexchar_to_value(id[5]));
-       else
--        first = print_buffer(first, last, "%s %hhu.%hhu%hhu.%hhu", itr->second,
-+        first = print_buffer(first, last, "%-12s %hhu.%hhu%hhu.%hhu", itr->second,
-           rak::hexchar_to_value(id[1]), rak::hexchar_to_value(id[3]),
-           rak::hexchar_to_value(id[4]), rak::hexchar_to_value(id[6]));
-     
-@@ -202,13 +202,13 @@
-   } else {
-     if (std::strncmp(id, "exbc", 4) == 0) {
-       if (id[4] == 0)
--        first = print_buffer(first, last, "%s %hhu.%02hhu", "BitComet", id[4], id[5]);
-+        first = print_buffer(first, last, "%-12s %hhu.%02hhu", "BitComet", id[4], id[5]);
-       else
--	first = print_buffer(first, last, "%s %hhu.%hhu", "BitLord", id[4], id[5]);
-+	first = print_buffer(first, last, "%-12s %hhu.%hhu", "BitLord", id[4], id[5]);
-     } else if (id[2] == 'B' && id[3] == 'S') {
--      first = print_buffer(first, last, "BitSpirit %hhu.%hhu", id[1], id[0]);
-+      first = print_buffer(first, last, "%-12s %hhu.%hhu", "BitSpirit", id[1], id[0]);
-     } else if (id[0] == '-' && id[1] == 'M' && id[2] == 'L') {
--      first = print_buffer(first, last, "MLDonkey %hhu.%hhu.%hhu", 
-+      first = print_buffer(first, last, "%-12s %hhu.%hhu.%hhu", "MLDonkey",
- 		rak::hexchar_to_value(id[3]), rak::hexchar_to_value(id[5]), rak::hexchar_to_value(id[7]));
-     } else if (id[0] == '-' && id[1] == 'G' && id[2] == '3') {
-       first = print_buffer(first, last, "G3 Torrent");
-@@ -217,10 +217,10 @@
-     } else if (std::strncmp(id+16, "UDP0", 4) == 0) {
-       first = print_buffer(first, last, "BitSpirit (cloaked)");
-     } else if (std::strncmp(id, "Mbrst", 5) == 0) {
--      first = print_buffer(first, last, "burst! %hhu.%hhu.%hhu",
-+      first = print_buffer(first, last, "%-12s %hhu.%hhu.%hhu", "burst!",
- 		rak::hexchar_to_value(id[5]), rak::hexchar_to_value(id[7]), rak::hexchar_to_value(id[9]));
-     } else
--    first = print_buffer(first, last, "unknown");
-+    first = print_buffer(first, last, "");
+@@ -228,17 +227,18 @@
+ print_client_version(char* first, char* last, const torrent::ClientInfo& clientInfo) {
+   switch (torrent::ClientInfo::version_size(clientInfo.type())) {
+   case 4:
+-    return print_buffer(first, last, "%s %hhu.%hhu.%hhu.%hhu",
++    return print_buffer(first, last, "%-12s %hhu.%hhu.%hhu.%hhu",
+                         clientInfo.short_description(),
+                         clientInfo.version()[0], clientInfo.version()[1],
+                         clientInfo.version()[2], clientInfo.version()[3]);
+   case 3:
+-    return print_buffer(first, last, "%s %hhu.%hhu.%hhu",
++    return print_buffer(first, last, "%-12s %hhu.%hhu.%hhu",
+                         clientInfo.short_description(),
+                         clientInfo.version()[0], clientInfo.version()[1],
+                         clientInfo.version()[2]);
+   default:
+-    return print_buffer(first, last, "%s", clientInfo.short_description());
++    return print_buffer(first, last, "%s",
++                        std::strncmp(clientInfo.short_description(), "Unknown", 7) ? clientInfo.short_description() : " ");
    }
+ }
  
-   return first;
+--- rtorrent-0.7.1/src/display/window_peer_list.cc.orig	2006-12-02 09:28:26.000000000 +0100
++++ rtorrent-0.7.1/src/display/window_peer_list.cc	2007-01-13 10:03:47.977730506 +0100
+@@ -77,7 +77,7 @@
+   m_canvas->print(x, y, "DONE");    x += 6;
+   m_canvas->print(x, y, "REQ");     x += 6;
+   m_canvas->print(x, y, "SNUB");    x += 6;
+-  m_canvas->print(x, y, "FAILED");
++  m_canvas->print(x, y, "FAIL");
+ 
+   ++y;
+ 
+@@ -137,7 +137,7 @@
+     if (p.failed_counter() != 0)
+       m_canvas->print(x, y, "%u", p.failed_counter());
+ 
+-    x += 7;
++    x += 5;
+ 
+     char buf[128];
+     print_client_version(buf, buf + 128, p.info()->client_info());
