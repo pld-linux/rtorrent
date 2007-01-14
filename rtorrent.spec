@@ -1,12 +1,13 @@
 #
 # Conditional build:
 %bcond_with	colors		# with color version
+%bcond_with	ipv6		# with IPv6 support (default IPv4-only)
 #
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 Version:	0.7.1
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
@@ -17,7 +18,7 @@ URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	automake
 BuildRequires:	curl-devel >= 7.12
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtorrent-devel >= 0.11.0
+BuildRequires:	libtorrent-devel >= 0.11.1
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
@@ -37,7 +38,7 @@ screena. Obs³uguje szybkie wznawianie i zarz±dzanie sesjami.
 %prep
 %setup -q
 %if %{with colors}
-#%patch100 -p1
+%patch100 -p1
 #%patch101 -p1
 %endif
 
@@ -45,7 +46,9 @@ screena. Obs³uguje szybkie wznawianie i zarz±dzanie sesjami.
 cp /usr/share/automake/config.sub .
 %configure \
 	CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses" \
-	--%{?debug:en}%{!?debug:dis}able-debug
+	--%{?debug:en}%{!?debug:dis}able-debug \
+	--%{?with_ipv6:en}%{!?with_ipv6:dis}able-ipv6
+
 %{__make}
 
 %install
