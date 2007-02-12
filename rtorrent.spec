@@ -4,7 +4,7 @@
 %bcond_with	ipv6		# with IPv6 support (default IPv4-only)
 #
 Summary:	rTorrent - a console-based BitTorrent client
-Summary(pl):	rTorrent - konsolowy klient BitTorrenta
+Summary(pl.UTF-8):   rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 Version:	0.7.2
 Release:	1
@@ -30,10 +30,10 @@ fully-featured and efficient client with the ability to run in the
 background using screen. It supports fast-resume and session
 management.
 
-%description -l pl
-rTorrent to konsolowy klient BitTorrenta. Jego celem jest byæ pe³nym i
-wydajnym klientem, z mo¿liwo¶ci± uruchamiania go w tle przy u¿yciu
-screena. Obs³uguje szybkie wznawianie i zarz±dzanie sesjami.
+%description -l pl.UTF-8
+rTorrent to konsolowy klient BitTorrenta. Jego celem jest byÄ‡ peÅ‚nym i
+wydajnym klientem, z moÅ¼liwoÅ›ciÄ… uruchamiania go w tle przy uÅ¼yciu
+screena. ObsÅ‚uguje szybkie wznawianie i zarzÄ…dzanie sesjami.
 
 %prep
 %setup -q
