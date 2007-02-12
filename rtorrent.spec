@@ -4,7 +4,7 @@
 %bcond_with	ipv6		# with IPv6 support (default IPv4-only)
 #
 Summary:	rTorrent - a console-based BitTorrent client
-Summary(pl.UTF-8):   rTorrent - konsolowy klient BitTorrenta
+Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 Version:	0.7.2
 Release:	1
