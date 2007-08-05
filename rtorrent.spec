@@ -17,7 +17,6 @@ Patch101:	%{name}-dns_peer_info.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	automake
 BuildRequires:	curl-devel >= 7.12
-BuildRequires:  libssh2-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtorrent-devel >= 0.11.2
 BuildRequires:	ncurses-devel
