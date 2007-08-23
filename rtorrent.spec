@@ -18,7 +18,7 @@ URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	automake
 BuildRequires:	curl-devel >= 7.12
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtorrent-devel >= 0.11.2
+BuildRequires:	libtorrent-devel >= 0.11.6
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
