@@ -7,13 +7,14 @@ Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 Version:	0.7.9
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
 # Source0-md5:	136202fdd540a92aafbcee29f849d228
 Patch100:	%{name}-colors.patch
 Patch101:	%{name}-dns_peer_info.patch
+Patch102:	%{name}-ssl-no-verify.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	automake
 BuildRequires:	curl-devel >= 7.12
@@ -41,6 +42,7 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 %patch100 -p1
 #%patch101 -p1
 %endif
+%patch102 -p1
 
 %build
 cp /usr/share/automake/config.sub .
