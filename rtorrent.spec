@@ -22,6 +22,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtorrent-devel >= 0.11.9
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
+BuildRequires:	xmlrpc-c-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -49,7 +50,8 @@ cp /usr/share/automake/config.sub .
 %configure \
 	CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses" \
 	--%{?debug:en}%{!?debug:dis}able-debug \
-	--%{?with_ipv6:en}%{!?with_ipv6:dis}able-ipv6
+	--%{?with_ipv6:en}%{!?with_ipv6:dis}able-ipv6 \
+	--with-xmlrpc-c
 
 %{__make}
 
