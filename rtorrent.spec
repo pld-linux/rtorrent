@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_with	colors		# with color version
 %bcond_with	ipv6		# with IPv6 support (default IPv4-only)
-%bcond_with	xmlrpc-c	# build xmlrpc-c support
+%bcond_with	xmlrpc		# build xmlrpc-c support
 #
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
@@ -23,7 +23,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtorrent-devel >= 0.11.9
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
-%if %{with xmlrpc-c}
+%if %{with xmlrpc}
 BuildRequires:	xmlrpc-c-devel
 %endif
 BuildRequires:	zlib-devel
@@ -54,7 +54,7 @@ cp /usr/share/automake/config.sub .
 	CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses" \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--%{?with_ipv6:en}%{!?with_ipv6:dis}able-ipv6 \
-	--%{?with_xmlrpc-c:en}%{!?with_xmlrpc-c:dis}able-xmlrpc-c
+	--%{?with_xmlrpc:en}%{!?with_xmlrpc:dis}able-xmlrpc-c
 
 %{__make}
 
