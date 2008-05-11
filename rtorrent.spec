@@ -24,7 +24,7 @@ BuildRequires:	libtorrent-devel >= 0.12.2
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 %if %{with xmlrpc}
-BuildRequires:	xmlrpc-c-devel >= 1.10.00-3
+BuildRequires:	xmlrpc-c-devel >= 1.14.2
 %endif
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
