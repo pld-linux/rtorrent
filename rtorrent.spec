@@ -1,8 +1,8 @@
 #
 # Conditional build:
-%bcond_with	colors		# with color version
-%bcond_with	ipv6		# with IPv6 support (default IPv4-only)
-%bcond_with	xmlrpc		# build xmlrpc-c support
+%bcond_with	xmlrpc		# build xmlrpc-c support (unstable!)
+%bcond_without	colors		# without color support
+%bcond_without	ipv6		# without IPv6 support
 #
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
@@ -13,18 +13,19 @@ License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
 # Source0-md5:	a2456182e1767e5aed7341dbbd058f60
-Patch0:		%{name}-colors.patch
-Patch1:		%{name}-dns_peer_info.patch
-Patch2:		%{name}-ssl-no-verify.patch
+Patch0:		%{name}-gcc43.patch
+Patch1:		%{name}-fix_start_stop_filter.patch
+Patch100:	%{name}-colors.patch
+Patch101:	%{name}-ssl-no-verify.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	automake
 BuildRequires:	curl-devel >= 7.12
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtorrent-devel >= 0.12.2
+BuildRequires:	libtorrent-devel >= 0.12.0
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 %if %{with xmlrpc}
-BuildRequires:	xmlrpc-c-devel >= 1.14.2
+BuildRequires:	xmlrpc-c-devel
 %endif
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -42,11 +43,12 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 
 %prep
 %setup -q
-%if %{with colors}
 %patch0 -p1
+%patch1 -p1
+%if %{with colors}
+%patch100 -p1
 %endif
-#%patch1 -p1
-%patch2 -p1
+%patch101 -p1
 
 %build
 cp /usr/share/automake/config.sub .
@@ -54,7 +56,7 @@ cp /usr/share/automake/config.sub .
 	CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses" \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--%{?with_ipv6:en}%{!?with_ipv6:dis}able-ipv6 \
-	--with%{!?with_xmlrpc:out}-xmlrpc-c
+	--%{?with_xmlrpc:en}%{!?with_xmlrpc:dis}able-xmlrpc-c
 
 %{__make}
 
