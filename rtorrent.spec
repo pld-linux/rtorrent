@@ -1,21 +1,22 @@
 #
 # Conditional build:
-%bcond_with	colors		# with color version
-%bcond_with	ipv6		# with IPv6 support (default IPv4-only)
 %bcond_with	xmlrpc		# build xmlrpc-c support
+%bcond_without	colors		# without color version
+%bcond_without	ipv6		# without IPv6 support
 #
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 Version:	0.8.2
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
 # Source0-md5:	a2456182e1767e5aed7341dbbd058f60
 Patch0:		%{name}-colors.patch
-Patch1:		%{name}-dns_peer_info.patch
-Patch2:		%{name}-ssl-no-verify.patch
+Patch1:		%{name}-ssl-no-verify.patch
+Patch2:		%{name}-gcc43.patch
+Patch3:		%{name}-fix_start_stop_filter.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	automake
 BuildRequires:	curl-devel >= 7.12
@@ -45,8 +46,9 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 %if %{with colors}
 %patch0 -p1
 %endif
-#%patch1 -p1
+%patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 cp /usr/share/automake/config.sub .
