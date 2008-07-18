@@ -1,14 +1,14 @@
 #
 # Conditional build:
-%bcond_with	xmlrpc		# build xmlrpc-c support
-%bcond_without	colors		# without color version
+%bcond_with	xmlrpc		# build xmlrpc-c support (unstable!)
+%bcond_without	colors		# without color support
 %bcond_without	ipv6		# without IPv6 support
 #
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 Version:	0.8.2
-Release:	4
+Release:	2
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
@@ -23,11 +23,11 @@ URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	automake
 BuildRequires:	curl-devel >= 7.12
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtorrent-devel >= 0.12.2
+BuildRequires:	libtorrent-devel >= 0.12.0
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 %if %{with xmlrpc}
-BuildRequires:	xmlrpc-c-devel >= 1.14.2
+BuildRequires:	xmlrpc-c-devel
 %endif
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -60,7 +60,7 @@ cp /usr/share/automake/config.sub .
 	CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses" \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--%{?with_ipv6:en}%{!?with_ipv6:dis}able-ipv6 \
-	--with%{!?with_xmlrpc:out}-xmlrpc-c
+	--%{?with_xmlrpc:en}%{!?with_xmlrpc:dis}able-xmlrpc-c
 
 %{__make}
 
