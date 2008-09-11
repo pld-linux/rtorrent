@@ -19,8 +19,10 @@ Patch2:		%{name}-gcc43.patch
 Patch3:		%{name}-fix_start_stop_filter.patch
 Patch4:		%{name}-fix_conn_type_seed.patch
 Patch5:		%{name}-fix_load_cache.patch
+Patch6:		%{name}-ip_filter.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	automake
+BuildRequires:	boost-devel >= 1.35.0
 BuildRequires:	curl-devel >= 7.12
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtorrent-devel >= 0.12.2
@@ -53,9 +55,14 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
-cp /usr/share/automake/config.sub .
+%{__libtoolize}
+%{__aclocal} -I scripts
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses" \
 	--%{?debug:en}%{!?debug:dis}able-debug \
