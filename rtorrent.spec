@@ -21,10 +21,12 @@ Patch4:		%{name}-fix_conn_type_seed.patch
 Patch5:		%{name}-fix_load_cache.patch
 Patch6:		%{name}-ip_filter.patch
 URL:		http://libtorrent.rakshasa.no/
+BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	boost-devel >= 1.35.0
 BuildRequires:	curl-devel >= 7.12
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool
 BuildRequires:	libtorrent-devel >= 0.12.2
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
