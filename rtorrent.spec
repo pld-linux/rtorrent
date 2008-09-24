@@ -1,5 +1,6 @@
 # TODO:
-# - ip_filter patch is broken (doesn't handle ipv6 addresses)
+# - ip_filter patch is broken (doesn't handle ipv6 addresses. Also causes
+#   "rtorrent: CommandMap::insert(...) tried to insert an already existing key." error)
 #
 # Conditional build:
 %bcond_with	xmlrpc		# build xmlrpc-c support
@@ -51,7 +52,8 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 %patch0 -p1
 %endif
 %patch1 -p1
-%patch2 -p1
+# broke, see TODO
+#%patch2 -p1
 
 %build
 %{__libtoolize}
