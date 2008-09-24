@@ -1,3 +1,5 @@
+# TODO:
+# - ip_filter patch is broken (doesn't handle ipv6 addresses)
 #
 # Conditional build:
 %bcond_with	xmlrpc		# build xmlrpc-c support
@@ -7,19 +9,15 @@
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
-Version:	0.8.2
-Release:	4
+Version:	0.8.3
+Release:	1
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
-# Source0-md5:	a2456182e1767e5aed7341dbbd058f60
+# Source0-md5:	d1b43acf08e371a56915293bbcf584c6
 Patch0:		%{name}-colors.patch
 Patch1:		%{name}-ssl-no-verify.patch
-Patch2:		%{name}-gcc43.patch
-Patch3:		%{name}-fix_start_stop_filter.patch
-Patch4:		%{name}-fix_conn_type_seed.patch
-Patch5:		%{name}-fix_load_cache.patch
-Patch6:		%{name}-ip_filter.patch
+Patch2:		%{name}-ip_filter.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -27,7 +25,7 @@ BuildRequires:	boost-devel >= 1.35.0
 BuildRequires:	curl-devel >= 7.12
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	libtorrent-devel >= 0.12.2
+BuildRequires:	libtorrent-devel >= 0.12.3
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 %if %{with xmlrpc}
@@ -54,10 +52,6 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 %endif
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
 
 %build
 %{__libtoolize}
