@@ -22,7 +22,7 @@ Patch2:		%{name}-ip_filter.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	boost-devel >= 1.34.1
+BuildRequires:	boost-devel >= 1.32.0
 BuildRequires:	curl-devel >= 7.12
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
