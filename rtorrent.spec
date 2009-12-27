@@ -3,7 +3,7 @@
 #   "rtorrent: CommandMap::insert(...) tried to insert an already existing key." error)
 #
 # Conditional build:
-%bcond_with	xmlrpc		# build xmlrpc-c support
+%bcond_without	xmlrpc		# build xmlrpc-c support
 %bcond_without	colors		# without color version
 %bcond_without	ipv6		# without IPv6 support
 #
@@ -11,7 +11,7 @@ Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 Version:	0.8.6
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
