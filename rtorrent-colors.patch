@@ -125,9 +125,9 @@
  
  char*
 -print_download_title(char* first, char* last, core::Download* d) {
--  return print_buffer(first, last, " %s", d->download()->name().c_str());
+-  return print_buffer(first, last, " %s", d->info()->name().c_str());
 +print_download_title(char* first, char* last, core::Download* d, double ratio) {
-+  return print_buffer(first, last, " %-82s  R: %5.2f", d->download()->name().c_str(), ratio);
++  return print_buffer(first, last, " %-82s  R: %5.2f", d->info()->name().c_str(), ratio);
  }
  
  char*
@@ -137,13 +137,13 @@
  
 -  first = print_buffer(first, last, " [%c%c R: %4.2f",
 +  first = print_buffer(first, last, " [%c%c",
-                        rpc::call_command_string("d.get_tied_to_file", rpc::make_target(d)).empty() ? ' ' : 'T',
--                       rpc::call_command_value("d.get_ignore_commands", rpc::make_target(d)) == 0 ? ' ' : 'I',
--                       (double)rpc::call_command_value("d.get_ratio", rpc::make_target(d)) / 1000.0);
-+                       rpc::call_command_value("d.get_ignore_commands", rpc::make_target(d)) == 0 ? ' ' : 'I');
+                        rpc::call_command_string("d.tied_to_file", rpc::make_target(d)).empty() ? ' ' : 'T',
+-                       rpc::call_command_value("d.ignore_commands", rpc::make_target(d)) == 0 ? ' ' : 'I',
+-                       (double)rpc::call_command_value("d.ratio", rpc::make_target(d)) / 1000.0);
++                       rpc::call_command_value("d.ignore_commands", rpc::make_target(d)) == 0 ? ' ' : 'I');
  
    if (d->priority() != 2)
-     first = print_buffer(first, last, " %s]", rpc::call_command_string("d.get_priority_str", rpc::make_target(d)).c_str());
+     first = print_buffer(first, last, " %s]", rpc::call_command_string("d.priority_str", rpc::make_target(d)).c_str());
 @@ -231,17 +230,18 @@
  print_client_version(char* first, char* last, const torrent::ClientInfo& clientInfo) {
    switch (torrent::ClientInfo::version_size(clientInfo.type())) {
