@@ -24,11 +24,11 @@ URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	boost-devel >= 1.35.0
-BuildRequires:	cppunit-devel
+BuildRequires:	cppunit-devel >= 1.9.6
 BuildRequires:	curl-devel >= 7.12
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	libtorrent-devel >= 0.12.6
+BuildRequires:	libtorrent-devel >= 0.12.7
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 %if %{with xmlrpc}
