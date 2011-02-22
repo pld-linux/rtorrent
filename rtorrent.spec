@@ -31,6 +31,7 @@ BuildRequires:	libtool
 BuildRequires:	libtorrent-devel >= 0.12.7
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
+BuildRequires:	sqlite3-devel
 %if %{with xmlrpc}
 BuildRequires:	xmlrpc-c-devel >= 1.14.2
 %endif
