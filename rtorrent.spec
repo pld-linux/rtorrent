@@ -12,6 +12,7 @@ Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 Version:	0.8.8
 Release:	1
+Epoch:		1
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
@@ -29,7 +30,7 @@ BuildRequires:	cppunit-devel >= 1.9.6
 BuildRequires:	curl-devel >= 7.12
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	libtorrent-devel >= 0.12.8
+BuildRequires:	libtorrent-devel = 1:0.12.8
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 BuildRequires:	sqlite3-devel
