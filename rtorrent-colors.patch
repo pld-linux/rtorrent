@@ -73,7 +73,7 @@
 +    core::Download* d = *range.first;
 +
 +    if (d->download()->bytes_done())
-+      ratio = (double)d->download()->up_rate()->total() / (double)d->download()->bytes_done();
++      ratio = (double)d->info()->up_rate()->total() / (double)d->download()->bytes_done();
 +    if (ratio >= 1.0)
 +      col = 1;
 +    else if (ratio >= 0.5)
@@ -83,7 +83,7 @@
 +
 +    position = print_download_title(buffer, last, *range.first, ratio);
 +    m_canvas->print(0, pos, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
-+    if (d->download()->is_open())
++    if (d->info()->is_open())
 +      m_canvas->set_attr(0, pos, m_canvas->get_screen_width(), (d->is_done())?0:A_BOLD,
 +        (d->is_done())?col:4);
 +    pos++;
@@ -94,14 +94,14 @@
      position = print_download_info(buffer, last, *range.first);
 -    m_canvas->print(0, pos++, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
 +    m_canvas->print(0, pos, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
-+    if (!d->download()->is_active())
++    if (!d->info()->is_active())
 +      m_canvas->set_attr(0, pos, m_canvas->get_screen_width(), A_BOLD, 8);
 +    pos++;
  
      position = print_download_status(buffer, last, *range.first);
 -    m_canvas->print(0, pos++, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
 +    m_canvas->print(0, pos, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
-+    if (!d->download()->is_active())
++    if (!d->info()->is_active())
 +      m_canvas->set_attr(0, pos, m_canvas->get_screen_width(), A_BOLD, 8);
 +    pos++;
  
@@ -125,9 +125,9 @@
  
  char*
 -print_download_title(char* first, char* last, core::Download* d) {
--  return print_buffer(first, last, " %s", d->download()->name().c_str());
+-  return print_buffer(first, last, " %s", d->info()->name().c_str());
 +print_download_title(char* first, char* last, core::Download* d, double ratio) {
-+  return print_buffer(first, last, " %-82s  R: %5.2f", d->download()->name().c_str(), ratio);
++  return print_buffer(first, last, " %-82s  R: %5.2f", d->info()->name().c_str(), ratio);
  }
  
  char*
@@ -137,10 +137,10 @@
  
 -  first = print_buffer(first, last, " [%c%c R: %4.2f",
 +  first = print_buffer(first, last, " [%c%c",
-                        rpc::call_command_string("d.get_tied_to_file", rpc::make_target(d)).empty() ? ' ' : 'T',
--                       rpc::call_command_value("d.get_ignore_commands", rpc::make_target(d)) == 0 ? ' ' : 'I',
--                       (double)rpc::call_command_value("d.get_ratio", rpc::make_target(d)) / 1000.0);
-+                       rpc::call_command_value("d.get_ignore_commands", rpc::make_target(d)) == 0 ? ' ' : 'I');
+                        rpc::call_command_string("d.tied_to_file", rpc::make_target(d)).empty() ? ' ' : 'T',
+-                       rpc::call_command_value("d.ignore_commands", rpc::make_target(d)) == 0 ? ' ' : 'I',
+-                       (double)rpc::call_command_value("d.ratio", rpc::make_target(d)) / 1000.0);
++                       rpc::call_command_value("d.ignore_commands", rpc::make_target(d)) == 0 ? ' ' : 'I');
  
    if (d->priority() != 2)
      first = print_buffer(first, last, " %s]", rpc::call_command_string("d.get_priority_str", rpc::make_target(d)).c_str());
