@@ -21,6 +21,7 @@ Patch0:		%{name}-colors.patch
 Patch1:		%{name}-ssl-no-verify.patch
 Patch2:		%{name}-ip_filter.patch
 Patch3:		%{name}-ac.patch
+Patch4:		%{name}-ncurses.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -59,6 +60,7 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 # broke, see TODO
 #%patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__libtoolize}
