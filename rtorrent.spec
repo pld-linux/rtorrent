@@ -12,7 +12,7 @@ Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 # keep stable line, see URL below
 Version:	0.8.9
-Release:	3
+Release:	4
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking
