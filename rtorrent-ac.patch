@@ -24,3 +24,16 @@
        )
      ])
  ])
+--- rtorrent-0.8.9/scripts/checks.m4~	2011-09-02 19:46:02.000000000 +0200
++++ rtorrent-0.8.9/scripts/checks.m4	2011-09-02 20:10:27.597473502 +0200
+@@ -448,8 +448,8 @@
+       fi
+       
+       if eval $xmlrpc_cc_prg --version 2>/dev/null >/dev/null; then
+-        CXXFLAGS="$CXXFLAGS `$xmlrpc_cc_prg --cflags server-util`"
+-        LIBS="$LIBS `$xmlrpc_cc_prg server-util --libs`"
++        CXXFLAGS="$CXXFLAGS `$xmlrpc_cc_prg --cflags server-util xmlrpc_util`"
++        LIBS="$LIBS `$xmlrpc_cc_prg server-util --libs` -lxmlrpc-c -lxmlrpc_util"
+ 
+         AC_TRY_LINK(
+         [ #include <xmlrpc-c/server.h>
