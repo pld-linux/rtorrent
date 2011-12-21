@@ -90,6 +90,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS README TODO doc/rtorrent.rc
+%doc AUTHORS README doc/rtorrent.rc
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man1/rtorrent.1*
