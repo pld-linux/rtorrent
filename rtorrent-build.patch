@@ -1,0 +1,10 @@
+--- rtorrent-0.9.2/src/Makefile.am~	2012-03-13 13:10:49.000000000 +0100
++++ rtorrent-0.9.2/src/Makefile.am	2012-05-06 10:05:46.615662952 +0200
+@@ -47,6 +47,7 @@
+ 	input/libsub_input.a \
+ 	rpc/libsub_rpc.a \
+ 	utils/libsub_utils.a \
++	-lxmlrpc-c -lxmlrpc_util \
+ 	@PTHREAD_LIBS@
+ 
+ rtorrent_SOURCES = \

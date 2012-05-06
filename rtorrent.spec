@@ -1,27 +1,28 @@
 # TODO:
 # - ip_filter patch is broken (doesn't handle ipv6 addresses. Also causes
 #   "rtorrent: CommandMap::insert(...) tried to insert an already existing key." error)
+# - fix colors patch and revert bcond
 #
 # Conditional build:
 %bcond_without	xmlrpc		# build xmlrpc-c support
-%bcond_without	colors		# without color version
+%bcond_with	colors		# without color version
 %bcond_without	ipv6		# without IPv6 support
 #
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 # keep stable line, see URL below
-Version:	0.8.9
-Release:	5
+Version:	0.9.2
+Release:	1
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
-# Source0-md5:	629247636cb1210663b52dadbd040a6c
+# Source0-md5:	72c3e9ab859bda7cc8aa96c0b508b09f
 Patch0:		%{name}-colors.patch
 Patch1:		%{name}-ssl-no-verify.patch
 Patch2:		%{name}-ip_filter.patch
-Patch3:		%{name}-ac.patch
+Patch3:		%{name}-build.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -30,7 +31,7 @@ BuildRequires:	cppunit-devel >= 1.9.6
 BuildRequires:	curl-devel >= 7.12
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	libtorrent-devel = 1:0.12.9
+BuildRequires:	libtorrent-devel = 1:0.13.2
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 BuildRequires:	sqlite3-devel
@@ -89,6 +90,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS README TODO doc/rtorrent.rc
+%doc AUTHORS README doc/rtorrent.rc
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man1/rtorrent.1*
