@@ -1,11 +1,10 @@
 # TODO:
 # - ip_filter patch is broken (doesn't handle ipv6 addresses. Also causes
 #   "rtorrent: CommandMap::insert(...) tried to insert an already existing key." error)
-# - fix colors patch and revert bcond
 #
 # Conditional build:
 %bcond_without	xmlrpc		# build xmlrpc-c support
-%bcond_with	colors		# without color version
+%bcond_without	colors		# without color version
 %bcond_without	ipv6		# without IPv6 support
 #
 Summary:	rTorrent - a console-based BitTorrent client
@@ -13,7 +12,7 @@ Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 # keep stable line, see URL below
 Version:	0.9.2
-Release:	1
+Release:	2
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking

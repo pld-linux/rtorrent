@@ -53,7 +53,7 @@
  #include "core/download.h"
  #include "core/view.h"
  
-@@ -89,21 +91,48 @@
+@@ -89,20 +91,47 @@
    if (range.second != m_view->end_visible())
      ++range.second;
  
@@ -66,7 +66,6 @@
  
    while (range.first != range.second) {
      char buffer[m_canvas->width() + 1];
-     char* position;
      char* last = buffer + m_canvas->width() - 2 + 1;
 +    int col = 0;
 +    double ratio = 0;
@@ -81,24 +80,24 @@
 +    else
 +      col = 3;
 +
-+    position = print_download_title(buffer, last, *range.first, ratio);
++    print_download_title(buffer, last, *range.first, ratio);
 +    m_canvas->print(0, pos, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
 +    if (d->info()->is_open())
 +      m_canvas->set_attr(0, pos, m_canvas->get_screen_width(), (d->is_done())?0:A_BOLD,
 +        (d->is_done())?col:4);
 +    pos++;
  
--    position = print_download_title(buffer, last, *range.first);
+-    print_download_title(buffer, last, *range.first);
 -    m_canvas->print(0, pos++, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
 -    
-     position = print_download_info(buffer, last, *range.first);
+     print_download_info(buffer, last, *range.first);
 -    m_canvas->print(0, pos++, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
 +    m_canvas->print(0, pos, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
 +    if (!d->info()->is_active())
 +      m_canvas->set_attr(0, pos, m_canvas->get_screen_width(), A_BOLD, 8);
 +    pos++;
  
-     position = print_download_status(buffer, last, *range.first);
+     print_download_status(buffer, last, *range.first);
 -    m_canvas->print(0, pos++, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
 +    m_canvas->print(0, pos, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
 +    if (!d->info()->is_active())
