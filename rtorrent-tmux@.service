@@ -1,0 +1,12 @@
+[Unit]
+Description=rTorrent in detached tmux session
+
+[Service]
+Type=forking
+User=%I
+Environment=TMPDIR=%h/tmp
+ExecStart=/usr/bin/tmux new-session -d -s rtorrent rtorrent
+ExecStop=/usr/bin/tmux send-keys -t rtorrent C-q
+
+[Install]
+WantedBy=multi-user.target

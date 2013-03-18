@@ -12,16 +12,18 @@ Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 # keep stable line, see URL below
 Version:	0.9.2
-Release:	2
+Release:	3
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://libtorrent.rakshasa.no/downloads/%{name}-%{version}.tar.gz
 # Source0-md5:	72c3e9ab859bda7cc8aa96c0b508b09f
+Source1:	rtorrent-tmux@.service
 Patch0:		%{name}-colors.patch
 Patch1:		%{name}-ssl-no-verify.patch
 Patch2:		%{name}-ip_filter.patch
 Patch3:		%{name}-build.patch
+Patch4:		am.patch
 URL:		http://libtorrent.rakshasa.no/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -38,6 +40,7 @@ BuildRequires:	sqlite3-devel
 BuildRequires:	xmlrpc-c-devel >= 1.14.2
 %endif
 BuildRequires:	zlib-devel
+Suggests:	tmux
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -60,6 +63,7 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 # broke, see TODO
 #%patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__libtoolize}
@@ -77,12 +81,13 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
+install -d $RPM_BUILD_ROOT{%{_mandir}/man1,%{systemdunitdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -p doc/rtorrent.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -p %{SOURCE1} $RPM_BUILD_ROOT%{systemdunitdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -92,3 +97,4 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS README doc/rtorrent.rc
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man1/rtorrent.1*
+%{systemdunitdir}/*.service
