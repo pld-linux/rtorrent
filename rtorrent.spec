@@ -37,7 +37,7 @@ BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 BuildRequires:	sqlite3-devel
 %if %{with xmlrpc}
-BuildRequires:	xmlrpc-c-devel >= 1.14.2
+BuildRequires:	xmlrpc-c-server-devel >= 1.14.2
 %endif
 BuildRequires:	zlib-devel
 Suggests:	tmux
