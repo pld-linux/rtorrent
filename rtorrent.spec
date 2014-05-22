@@ -24,11 +24,11 @@ Patch1:		%{name}-ssl-no-verify.patch
 Patch2:		%{name}-ip_filter.patch
 Patch3:		%{name}-build.patch
 URL:		https://github.com/rakshasa/rtorrent/wiki
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	boost-devel >= 1.35.0
 BuildRequires:	cppunit-devel >= 1.9.6
-BuildRequires:	curl-devel >= 7.12
+BuildRequires:	curl-devel >= 7.15.4
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	libtorrent-devel = 1:0.13.4
@@ -39,6 +39,8 @@ BuildRequires:	sqlite3-devel
 BuildRequires:	xmlrpc-c-server-devel >= 1.14.2
 %endif
 BuildRequires:	zlib-devel
+Requires:	curl-libs >= 7.15.4
+Requires:	libtorrent = 1:0.13.4
 Suggests:	tmux
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -92,5 +94,5 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS README doc/rtorrent.rc
-%attr(755,root,root) %{_bindir}/*
-%{systemdunitdir}/*.service
+%attr(755,root,root) %{_bindir}/rtorrent
+%{systemdunitdir}/rtorrent-tmux@.service
