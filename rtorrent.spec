@@ -4,20 +4,20 @@
 #
 # Conditional build:
 %bcond_without	xmlrpc		# build xmlrpc-c support
-%bcond_without	colors		# without color version
+%bcond_with	colors		# without color version
 %bcond_without	ipv6		# without IPv6 support
 #
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 # keep stable line, see URL below
-Version:	0.9.6
+Version:	0.9.7
 Release:	1
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://rtorrent.net/downloads/%{name}-%{version}.tar.gz
-# Source0-md5:	5e7550f74e382a6245412c615f45444d
+# Source0-md5:	284b833794ce3ab4ddc62cf1a20edeb1
 Source1:	rtorrent-tmux@.service
 Patch0:		%{name}-colors.patch
 Patch1:		%{name}-ssl-no-verify.patch
@@ -31,7 +31,7 @@ BuildRequires:	cppunit-devel >= 1.9.6
 BuildRequires:	curl-devel >= 7.15.4
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	libtorrent-devel = 1:0.13.6
+BuildRequires:	libtorrent-devel = 1:0.13.7
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 BuildRequires:	sqlite3-devel
@@ -40,7 +40,7 @@ BuildRequires:	xmlrpc-c-server-devel >= 1.14.2
 %endif
 BuildRequires:	zlib-devel
 Requires:	curl-libs >= 7.15.4
-Requires:	libtorrent = 1:0.13.6
+Requires:	libtorrent = 1:0.13.7
 Suggests:	tmux
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
