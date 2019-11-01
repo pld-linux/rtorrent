@@ -10,14 +10,13 @@
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
-# keep stable line, see URL below
-Version:	0.9.7
+Version:	0.9.8
 Release:	1
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	http://rtorrent.net/downloads/%{name}-%{version}.tar.gz
-# Source0-md5:	284b833794ce3ab4ddc62cf1a20edeb1
+# Source0-md5:	cbdf499faa0882e20d60fcb85a8f51d3
 Source1:	rtorrent-tmux@.service
 Patch0:		%{name}-colors.patch
 Patch1:		%{name}-ssl-no-verify.patch
@@ -31,7 +30,7 @@ BuildRequires:	cppunit-devel >= 1.9.6
 BuildRequires:	curl-devel >= 7.15.4
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	libtorrent-devel = 1:0.13.7
+BuildRequires:	libtorrent-devel = 1:0.13.8
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 BuildRequires:	sqlite3-devel
