@@ -11,7 +11,7 @@ Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 Version:	0.9.8
-Release:	1
+Release:	2
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking
