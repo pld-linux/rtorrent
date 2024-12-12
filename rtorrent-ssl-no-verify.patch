@@ -1,15 +1,14 @@
-diff -urN rtorrent-0.7.9.org/src/core/curl_stack.cc rtorrent-0.7.9/src/core/curl_stack.cc
---- rtorrent-0.7.9.org/src/core/curl_stack.cc	2007-10-19 19:20:56.000000000 +0200
-+++ rtorrent-0.7.9/src/core/curl_stack.cc	2007-12-05 22:04:50.282625460 +0100
-@@ -127,6 +127,11 @@
+--- rtorrent-0.9.8/src/core/curl_stack.cc.orig	2024-12-12 10:18:51.099333632 +0100
++++ rtorrent-0.9.8/src/core/curl_stack.cc	2024-12-12 10:25:01.950578596 +0100
+@@ -196,6 +196,11 @@
    if (!m_httpCaCert.empty())
      curl_easy_setopt(get->handle(), CURLOPT_CAINFO, m_httpCaCert.c_str());
  
 +  if (m_httpCaPath.empty() && m_httpCaCert.empty()) {
-+	  curl_easy_setopt(get->handle(), CURLOPT_SSL_VERIFYPEER, 0);
-+	  curl_easy_setopt(get->handle(), CURLOPT_SSL_VERIFYHOST, 0);
++    m_ssl_verify_host = false;
++    m_ssl_verify_peer = false;
 +  }
 +
-   base_type::push_back(get);
- 
-   if (m_active >= m_maxActive)
+   curl_easy_setopt(get->handle(), CURLOPT_SSL_VERIFYHOST, (long)(m_ssl_verify_host ? 2 : 0));
+   curl_easy_setopt(get->handle(), CURLOPT_SSL_VERIFYPEER, (long)(m_ssl_verify_peer ? 1 : 0));
+   curl_easy_setopt(get->handle(), CURLOPT_DNS_CACHE_TIMEOUT, m_dns_timeout);
