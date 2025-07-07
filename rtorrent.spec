@@ -1,7 +1,3 @@
-# TODO:
-# - ip_filter patch is broken (doesn't handle ipv6 addresses. Also causes
-#   "rtorrent: CommandMap::insert(...) tried to insert an already existing key." error)
-#
 # Conditional build:
 %bcond_without	xmlrpc		# build xmlrpc-c support
 %bcond_with	colors		# without color version
@@ -10,18 +6,16 @@
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
-Version:	0.9.8
-Release:	4
+Version:	0.15.5
+Release:	1
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking
-Source0:	http://rtorrent.net/downloads/%{name}-%{version}.tar.gz
-# Source0-md5:	cbdf499faa0882e20d60fcb85a8f51d3
+Source0:	https://github.com/rakshasa/rtorrent/releases/download/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	230d0b12c7d873af964b9f5a5abaa5a3
 Source1:	rtorrent-tmux@.service
 Patch0:		%{name}-colors.patch
-Patch1:		%{name}-ssl-no-verify.patch
-Patch2:		%{name}-ip_filter.patch
-Patch3:		%{name}-build.patch
+Patch1:		%{name}-build.patch
 URL:		https://github.com/rakshasa/rtorrent/wiki
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -30,7 +24,7 @@ BuildRequires:	cppunit-devel >= 1.9.6
 BuildRequires:	curl-devel >= 7.15.4
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	libtorrent-devel = 1:0.13.8
+BuildRequires:	libtorrent-devel = 1:0.15.5
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
 BuildRequires:	sqlite3-devel
@@ -57,12 +51,9 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 %prep
 %setup -q
 %if %{with colors}
-%patch0 -p1
+%patch -P0 -p1
 %endif
-%patch1 -p1
-# broke, see TODO
-#%patch2 -p1
-%patch3 -p1
+%patch -P1 -p1
 
 %build
 %{__libtoolize}
