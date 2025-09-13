@@ -7,7 +7,7 @@ Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
 Version:	0.16.0
-Release:	1
+Release:	2
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking
@@ -85,5 +85,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS README.md doc/rtorrent.rc
 %attr(755,root,root) %{_bindir}/rtorrent
+%dir %{_datadir}/%{name}/lua
 %{_datadir}/%{name}/lua/rtorrent.lua
 %{systemdunitdir}/rtorrent-tmux@.service
