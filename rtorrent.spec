@@ -1,33 +1,35 @@
 # Conditional build:
 %bcond_without	xmlrpc		# build xmlrpc-c support
+%bcond_without	lua		# build Lua scripting support
 %bcond_with	colors		# without color version
-%bcond_without	ipv6		# without IPv6 support
 #
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
-Version:	0.16.6
+Version:	0.16.14
 Release:	1
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	https://github.com/rakshasa/rtorrent/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	e9c673d136ccdf2b34309ba1ced3d77b
+# Source0-md5:	fa151ebbfdd8f6dd4dec51cb5dde745b
 Source1:	rtorrent-tmux@.service
 Patch0:		%{name}-colors.patch
 Patch1:		%{name}-build.patch
 URL:		https://github.com/rakshasa/rtorrent/wiki
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
-BuildRequires:	boost-devel >= 1.35.0
 BuildRequires:	cppunit-devel >= 1.9.6
 BuildRequires:	curl-devel >= 7.15.4
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	libtorrent-devel = 1:0.16.6
+BuildRequires:	libtorrent-devel = 1:0.16.14
+%if %{with lua}
+BuildRequires:	lua54
+BuildRequires:	lua54-devel
+%endif
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
-BuildRequires:	sqlite3-devel
 %if %{with xmlrpc}
 BuildRequires:	xmlrpc-c-server-devel >= 1.14.2
 %endif
@@ -64,7 +66,7 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 %configure \
 	CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses" \
 	--%{?debug:en}%{!?debug:dis}able-debug \
-	--%{?with_ipv6:en}%{!?with_ipv6:dis}able-ipv6 \
+	--with%{!?with_lua:out}-lua \
 	--with%{!?with_xmlrpc:out}-xmlrpc-c
 
 %{__make}
