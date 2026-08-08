@@ -2,21 +2,18 @@
 # Conditional build:
 %bcond_without	xmlrpc		# build xmlrpc-c support
 %bcond_without	lua		# build Lua scripting support
-%bcond_with	colors		# without color version
 #
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
-Version:	0.16.14
-Release:	2
+Version:	0.16.20
+Release:	1
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking
 Source0:	https://github.com/rakshasa/rtorrent/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	fa151ebbfdd8f6dd4dec51cb5dde745b
+# Source0-md5:	373d89f7ee33d07b75be4cb2940773b9
 Source1:	rtorrent-tmux@.service
-Patch0:		%{name}-colors.patch
-Patch1:		%{name}-build.patch
 URL:		https://github.com/rakshasa/rtorrent/wiki
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -24,7 +21,7 @@ BuildRequires:	cppunit-devel >= 1.9.6
 BuildRequires:	curl-devel >= 7.15.4
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	libtorrent-devel = 1:0.16.14
+BuildRequires:	libtorrent-devel = 1:0.16.20
 %if %{with lua}
 BuildRequires:	lua54
 BuildRequires:	lua54-devel
@@ -53,10 +50,6 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 
 %prep
 %setup -q
-%if %{with colors}
-%patch -P0 -p1
-%endif
-%patch -P1 -p1
 
 %build
 %{__libtoolize}
