@@ -1,7 +1,7 @@
 #
 # Conditional build:
-%bcond_without	xmlrpc		# build xmlrpc-c support
-%bcond_without	lua		# build Lua scripting support
+%bcond_without	xmlrpc		# xmlrpc-c support
+%bcond_without	lua		# Lua scripting support
 #
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
@@ -11,6 +11,7 @@ Release:	1
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking
+#Source0Download: https://github.com/rakshasa/rtorrent/releases
 Source0:	https://github.com/rakshasa/rtorrent/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	373d89f7ee33d07b75be4cb2940773b9
 Source1:	rtorrent-tmux@.service
@@ -59,9 +60,9 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 %{__automake}
 %configure \
 	CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses" \
-	--%{?debug:en}%{!?debug:dis}able-debug \
-	--with%{!?with_lua:out}-lua \
-	--with%{!?with_xmlrpc:out}-xmlrpc-c
+	--enable-debug%{!?debug:=no} \
+	--with-lua%{!?with_lua:=no} \
+	--with-xmlrpc-c%{!?with_xmlrpc:=no}
 
 %{__make}
 
@@ -72,7 +73,7 @@ install -d $RPM_BUILD_ROOT%{systemdunitdir}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -p %{SOURCE1} $RPM_BUILD_ROOT%{systemdunitdir}
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{systemdunitdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
