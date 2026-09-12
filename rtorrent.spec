@@ -2,27 +2,30 @@
 # Conditional build:
 %bcond_without	xmlrpc		# xmlrpc-c support
 %bcond_without	lua		# Lua scripting support
+%bcond_without	tests		# unit tests
 #
 Summary:	rTorrent - a console-based BitTorrent client
 Summary(pl.UTF-8):	rTorrent - konsolowy klient BitTorrenta
 Name:		rtorrent
-Version:	0.16.20
-Release:	2
+Version:	0.16.21
+Release:	1
 Epoch:		5
 License:	GPL v2+
 Group:		Applications/Networking
 #Source0Download: https://github.com/rakshasa/rtorrent/releases
 Source0:	https://github.com/rakshasa/rtorrent/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	373d89f7ee33d07b75be4cb2940773b9
+# Source0-md5:	4e9099f695978407794c705b74c6c00e
 Source1:	rtorrent-tmux@.service
 URL:		https://github.com/rakshasa/rtorrent/wiki
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
+%if %{with tests}
 BuildRequires:	cppunit-devel >= 1.9.6
+%endif
 BuildRequires:	curl-devel >= 7.15.4
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	libtorrent-devel = 1:0.16.20
+BuildRequires:	libtorrent-devel = 1:0.16.21
 %if %{with lua}
 BuildRequires:	lua54
 BuildRequires:	lua54-devel
@@ -65,6 +68,10 @@ screena. Obsługuje szybkie wznawianie i zarządzanie sesjami.
 	--with-xmlrpc-c%{!?with_xmlrpc:=no}
 
 %{__make}
+
+%if %{with tests}
+%{__make} check
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
